@@ -30,5 +30,5 @@ Nice-To-Haves: Things that are not important and maybe done when time is existen
 
 - (Must) Build a typescript / javascript frontend which runs upon Node.js
 - (Must) Build a integration to a telegram chat bot to play for both players.
-- (Should) Build an integration with an telegram bot.
+- (Should) Build an integration with an telegram bot (see [EdJoPaTo](https://github.com/EdJoPaTo/rell-tik-tac-toe-telegram-bot)).
 - (Nice) Deploy permamently
