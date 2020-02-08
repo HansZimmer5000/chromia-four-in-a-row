@@ -7,7 +7,7 @@ The game is based upon a play field of the size of 7x6 fields (width x height). 
 
 The idea to build this game on the [Chromia Blockchain](https://chromia.com/) in Rell comes from a workshop during the 'WorkshopWeek' of the HAW Hamburg.
 
-The implementation is currently only temporarlily deployed via the [web editor](https://try.chromia.dev/).
+The implementation is currently only temporarily deployed via the [web editor](https://try.chromia.dev/).
 
 ## How to play this implementation
 
@@ -31,4 +31,4 @@ Nice-To-Haves: Things that are not important and maybe done when time is existen
 - (Must) Build a typescript / javascript frontend which runs upon Node.js
 - (Must) Build a integration to a telegram chat bot to play for both players.
 - (Should) Build an integration with an telegram bot.
-- (Nice) Deploy statically
+- (Nice) Deploy permamently
