@@ -5,8 +5,9 @@ const pcl = require('postchain-client')
 
 // Check the node log on rellide-staging.chromia.dev to get node api url.
 // const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/XXXXX/'
-const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10061/'
-const blockchainRID = '886DF4AC890A8D189DB6AB3E2CA61DA8B3C86961CEA7BA94522130525F2B2C52'
+// https://rellide-staging.chromia.dev/node/10125/brid/iid_0
+const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10125/'
+const blockchainRID = '1812F7461C813213797866628926620AAB290BD66E5DBE434F65F5B03CBFAEE4'
 
 const rest = pcl.restClient.createRestClient(nodeApiUrl, blockchainRID, 5)
 const gtx = pcl.gtxClient.createClient(
@@ -35,7 +36,7 @@ async function doOperations(keys: UserKeys, addOps: (tx: any) => void): Promise<
 	await tx.postAndWaitConfirmation()
 }
 
-export async function createUser(name: string): Promise<UserKeys> {
+export async function initGame(id: string): Promise<UserKeys> {
 	const user = pcl.util.makeKeyPair()
 	const {pubKey, privKey} = user
 	const keys: UserKeys = {
@@ -44,84 +45,8 @@ export async function createUser(name: string): Promise<UserKeys> {
 	}
 
 	await doOperations(keys, tx => {
-		tx.addOperation('create_user', name, pubKey)
+        tx.addOperation('init_game', id)
 	})
 
 	return keys
 }
-
-export async function createGame(userKeys: UserKeys): Promise<void> {
-	await doOperations(userKeys, tx => {
-		tx.addOperation('create_game', keysStringToBuffer(userKeys.pubKey), 20000)
-	})
-}
-
-export async function draw_player_card(userKeys: UserKeys): Promise<void> {
-	await doOperations(userKeys, tx => {
-		tx.addOperation('draw_player_card', keysStringToBuffer(userKeys.pubKey))
-		tx.addOperation('nop', Math.floor(Math.random() * 10000))
-	})
-}
-
-export async function bet(userKeys: UserKeys, bet: number): Promise<void> {
-	await doOperations(userKeys, tx => {
-		tx.addOperation('bet', keysStringToBuffer(userKeys.pubKey), bet)
-		tx.addOperation('nop', Math.floor(Math.random() * 10000))
-	})
-}
-
-
-
-export async function getUser(userKeys: UserKeys): Promise<{credit: number; name: string}> {
-	const result = await gtx.query(
-		'get_user',
-		{
-			pubkey: userKeys.pubKey
-		}
-	)
-
-	return result
-}
-/* Old Example code from Edgars Repo from here on:
-export async function getTables(): Promise<TableInfo[]> {
-	const raw = await gtx.query(
-		'getTables',
-		{}
-	)
-
-	return raw
-}
-
-export async function getOpenTables(userKeys: UserKeys): Promise<TableInfo[]> {
-	const raw = await gtx.query(
-		'getOpenTables',
-		{
-			pubkey: userKeys.pubKey
-		}
-	)
-
-	return raw
-}
-
-export async function getPlayerTables(userKeys: UserKeys): Promise<TableParticipantInfo[]> {
-	const raw = await gtx.query(
-		'getPlayerTables',
-		{
-			pubkey: userKeys.pubKey
-		}
-	)
-
-	return raw
-}
-
-export async function getTable(tableName: string): Promise<TableFullInfo> {
-	const raw = await gtx.query(
-		'getGame',
-		{
-			name: tableName
-		}
-	)
-
-	return raw
-}
-*/
