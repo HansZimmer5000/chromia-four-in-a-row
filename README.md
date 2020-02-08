@@ -7,11 +7,13 @@ The game is based upon a play field of the size of 7x6 fields (width x height). 
 
 The idea to build this game on the Chromia Blockchain in Rell comes from a workshop during the 'WorkshopWeek' of the HAW Hamburg.
 
-## How to play
+The implementation is not deployed yet.
+
+## How to play this implementation
 
 There is no Frontend yet. See TODOs
 
-## TODO
+## TODOs
 
 The TODOs are seperated in three types.
 Must-Haves: Things that are important and are done asap.
