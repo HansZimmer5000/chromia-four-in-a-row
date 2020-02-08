@@ -5,7 +5,7 @@ The game is based upon a play field of the size of 7x6 fields (width x height). 
 
 ## Deployment
 
-The idea to build this game on the Chromia Blockchain in Rell comes from a workshop during the 'WorkshopWeek' of the HAW Hamburg.
+The idea to build this game on the [Chromia Blockchain](https://chromia.com/) in Rell comes from a workshop during the 'WorkshopWeek' of the HAW Hamburg.
 
 The implementation is not deployed yet.
 
