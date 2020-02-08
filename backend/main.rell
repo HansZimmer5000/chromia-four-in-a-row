@@ -1,16 +1,21 @@
 
 // In this variation both players need to be next to each other on the same host / device.
-class game {
+
+struct field {
+    field: list<integer>;
+}
+
+entity game {
     key id: text;
-    mutable field: array;
+    tesdf: byte_array;
 }
 
 operation init_game(id: text) {
-    require(getGame(id) == null);
-    create game(id, [0,0,0]);
+    require(game@?{id} == null);
+    create game(id, field([0,0,0]).to_bytes());
 }
 
-operation set_token(id: text, col: number) {
+/*operation set_token(id: text, col: integer) {
     val game = game@{id};
     require(game != null);
     
@@ -18,6 +23,6 @@ operation set_token(id: text, col: number) {
     game.field[col] = oldVal + 1;
     
     update game @ {.id == id} (field);
-}
+}*/
 
-query getGame(id: text) = game@?{id};
+//query getGame(id: text) = game@?{id};
