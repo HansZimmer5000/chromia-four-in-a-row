@@ -1,0 +1,23 @@
+
+// In this variation both players need to be next to each other on the same host / device.
+class game {
+    key id: text;
+    mutable field: array;
+}
+
+operation init_game(id: text) {
+    require(getGame(id) == null);
+    create game(id, [0,0,0]);
+}
+
+operation set_token(id: text, col: number) {
+    val game = game@{id};
+    require(game != null);
+    
+    val oldVal = game.field[col];
+    game.field[col] = oldVal + 1;
+    
+    update game @ {.id == id} (field);
+}
+
+query getGame(id: text) = game@?{id};
