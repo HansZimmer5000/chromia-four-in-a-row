@@ -11,6 +11,7 @@ services:
       echo "--CONVERTING!!--" &&
       pwd &&
       npx tsc index.ts && 
+      cp *.js ./compiled/ &&
       node index.js"
     volumes:
       - ./index.ts:/tmp/index.ts

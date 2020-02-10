@@ -11,7 +11,7 @@ entity game {
 }
 
 operation init_game(id: text) {
-    require(game@?{id} == null); //Refactor to use query
+    require(game@?{id}); //Refactor to use query
     create game(id, columns([0,0,0]).to_bytes());
 }
 
