@@ -6,3 +6,4 @@ Running / Manual Tests via Docker Container 'node:13.8.0', but check if [URL (no
 docker-compose up
 ```
 
+Use ```getBrid.sh``` to get the brid of your application deployed via the [WebIDE](https://rellide-staging.chromia.dev/). ```getBrid.sh true``` will use a default node number, ```getBrid.sh false``` will ask your for the current node number.
