@@ -41,8 +41,8 @@ var pcl = require('postchain-client');
 // Check the node log on rellide-staging.chromia.dev to get node api url.
 // const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/XXXXX/'
 // https://rellide-staging.chromia.dev/node/10125/brid/iid_0
-var nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10126/';
-var blockchainRID = 'CF529F6C4D59D00113E3CF487ADD58F53710BAD5CB0492F1E419389A7F261BA1';
+var nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10149/';
+var blockchainRID = '23102EA1740493848E0C3CA9E92FE24AC6A154FAA3CA83390C429FBFE215FB89';
 var rest = pcl.restClient.createRestClient(nodeApiUrl, blockchainRID, 5);
 var gtx = pcl.gtxClient.createClient(rest, Buffer.from(blockchainRID, 'hex'), []);
 function keysBufferToString(b) {
@@ -111,7 +111,9 @@ function getGame(id) {
         var raw;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, gtx.query('getGame', {})
+                case 0: return [4 /*yield*/, gtx.query('getGame', {
+                        id: id
+                    })
                     //const names = raw.map((o: any) => o.name)
                 ];
                 case 1:
