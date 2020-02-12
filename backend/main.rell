@@ -11,8 +11,8 @@ entity game {
 }
 
 operation init_game(id: text) {
-    require(game@?{id}); //Refactor to use query
-    create game(id, columns([0,0,0]).to_bytes());
+    require(game@?{id} == null); //Refactor to use query
+    create game(id, columns([0,0,0,0,0,0,0]).to_bytes());
 }
 
 operation set_token(id: text, col: integer) {
@@ -27,4 +27,11 @@ operation set_token(id: text, col: integer) {
     update game @ {.id == id} (fieldRaw);
 }
 
-query getGame(id: text) = game@?{id};
+query getGame(id: text): columns{
+    val currentGame = game@?{id};
+    if (currentGame != null){
+        return columns.from_bytes(currentGame.field);
+    } else {
+        return columns([0]);
+    }
+}
