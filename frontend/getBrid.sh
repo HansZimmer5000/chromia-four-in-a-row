@@ -6,7 +6,7 @@ get_brid(){
 
 if $1
 then
-    NODE=10149
+    NODE=10152
 else 
     read -p "Node Number: " NODE
 fi

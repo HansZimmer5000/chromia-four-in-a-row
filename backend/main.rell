@@ -2,7 +2,7 @@
 // In this variation both players need to be next to each other on the same host / device.
 
 struct columns {
-    columns: list<integer>;
+    columns: list<list<integer>>;
 }
 
 entity game {
@@ -12,7 +12,8 @@ entity game {
 
 operation init_game(id: text) {
     require(game@?{id} == null); //Refactor to use query
-    create game(id, columns([0,0,0,0,0,0,0]).to_bytes());
+    val default_col = [0,0,0,0,0,0];
+    create game(id, columns([default_col,default_col,default_col,default_col,default_col,default_col,default_col]).to_bytes());
 }
 
 operation set_token(id: text, col: integer) {
@@ -20,8 +21,14 @@ operation set_token(id: text, col: integer) {
     require(game);
     
     val field = columns.from_bytes(game.field).columns;
-    val oldVal = field[col];
-    field[col] = oldVal + 1;
+    val column = field[col];
+    for (i in range(6)) {
+        val token = column[i];
+        if (token == 0){
+            column[i] = 1;
+            break;
+        }
+    }
     
     val fieldRaw = columns(field).to_bytes();
     update game @ {.id == id} (fieldRaw);
@@ -32,6 +39,6 @@ query getGame(id: text): columns{
     if (currentGame != null){
         return columns.from_bytes(currentGame.field);
     } else {
-        return columns([0]);
+        return columns([[0]]);
     }
 }

@@ -41,28 +41,28 @@ var comm_1 = require("./comm");
 // Then start script with 'node file.js'
 function startGame() {
     return __awaiter(this, void 0, void 0, function () {
-        var id, userKeys, currentGame, buffer;
+        var id, userKeys, currentGame;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    id = "8";
+                    id = "13";
                     return [4 /*yield*/, comm_1.initGame(id)];
                 case 1:
                     userKeys = _a.sent();
                     return [4 /*yield*/, comm_1.setToken(id, 0, userKeys)];
                 case 2:
                     _a.sent();
-                    console.log("GETGAME");
                     return [4 /*yield*/, comm_1.getGame(id)];
                 case 3:
                     currentGame = _a.sent();
                     console.log(currentGame);
-                    buffer = new ArrayBuffer(12);
-                    console.log(new Int32Array(buffer));
-                    buffer = new ArrayBuffer(3);
-                    console.log(new Int8Array(buffer));
-                    buffer = new ArrayBuffer(6);
-                    console.log(new Int16Array(buffer));
+                    return [4 /*yield*/, comm_1.setToken(id, 0, userKeys)];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, comm_1.getGame(id)];
+                case 5:
+                    currentGame = _a.sent();
+                    console.log(currentGame);
                     return [2 /*return*/];
             }
         });

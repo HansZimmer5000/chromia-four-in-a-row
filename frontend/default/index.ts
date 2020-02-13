@@ -4,12 +4,14 @@ import { initGame, setToken, getGame } from "./comm";
 // Then start script with 'node file.js'
 
 async function startGame(){
-    const id = "9"
-    
+    const id = "13"
+
     const userKeys = await initGame(id)
     await setToken(id, 0, userKeys)
-
-    const currentGame = await getGame(id)
+    let currentGame = await getGame(id)
+    console.log(currentGame)
+    await setToken(id, 0, userKeys)
+    currentGame = await getGame(id)
     console.log(currentGame)
 }
 

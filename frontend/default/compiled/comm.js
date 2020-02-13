@@ -41,8 +41,8 @@ var pcl = require('postchain-client');
 // Check the node log on rellide-staging.chromia.dev to get node api url.
 // const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/XXXXX/'
 // https://rellide-staging.chromia.dev/node/10125/brid/iid_0
-var nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10149/';
-var blockchainRID = '23102EA1740493848E0C3CA9E92FE24AC6A154FAA3CA83390C429FBFE215FB89';
+var nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10153/';
+var blockchainRID = '890934537F149E116ACFAC197F5E2B87ABDD2EB30853918F449EFC49763472EB';
 var rest = pcl.restClient.createRestClient(nodeApiUrl, blockchainRID, 5);
 var gtx = pcl.gtxClient.createClient(rest, Buffer.from(blockchainRID, 'hex'), []);
 function keysBufferToString(b) {
