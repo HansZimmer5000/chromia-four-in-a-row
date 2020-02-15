@@ -42,6 +42,11 @@ operation set_token(id: text, col: integer) {
 
 // No functions for now, since queries can be accessed and tested from the outside.
 
+queriy getGame(id: text): game {
+    val game = game@?{id};
+    require(game);
+}
+
 query getField(id: text): columns{
     val currentGame = game@?{id};
     if (currentGame != null){
