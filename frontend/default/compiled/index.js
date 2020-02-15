@@ -54,7 +54,7 @@ function startGame() {
                 case 2:
                     _a.sent();
                     console.log("GETTING");
-                    return [4 /*yield*/, comm_1.getGame(id)];
+                    return [4 /*yield*/, comm_1.getField(id)];
                 case 3:
                     currentGame = _a.sent();
                     console.log(currentGame);
@@ -67,7 +67,7 @@ function startGame() {
                 case 5:
                     _a.sent();
                     console.log("GETTING");
-                    return [4 /*yield*/, comm_1.getGame(id)];
+                    return [4 /*yield*/, comm_1.getField(id)];
                 case 6:
                     currentGame = _a.sent();
                     console.log(currentGame);

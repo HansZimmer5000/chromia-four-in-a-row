@@ -2,17 +2,17 @@ version: '3'
 
 services:
   node:
-    image: test #node:13.7.0
-    #command: bash -c "
-    #  cd /tmp/ &&
-    #  npm install postchain-client && 
-    #  npm install typescript && 
-    #  npm i @types/node && 
-    #  echo "--CONVERTING!!--" &&
-    #  pwd &&
-    #  npx tsc index.ts && 
-    #  cp *.js ./compiled/ &&
-    #  node index.js"
+    image: node:13.7.0
+    command: bash -c "
+      cd /tmp/ &&
+      npm install postchain-client && 
+      npm install typescript && 
+      npm i @types/node && 
+      echo "--CONVERTING!!--" &&
+      pwd &&
+      npx tsc index.ts && 
+      cp *.js ./compiled/ &&
+      node index.js"
     volumes:
       - ./index.ts:/tmp/index.ts
       - ./comm.ts:/tmp/comm.ts

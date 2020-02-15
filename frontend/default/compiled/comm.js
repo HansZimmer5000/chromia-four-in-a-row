@@ -106,12 +106,12 @@ function setToken(id, col, keys) {
     });
 }
 exports.setToken = setToken;
-function getGame(id) {
+function getField(id) {
     return __awaiter(this, void 0, void 0, function () {
         var raw;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, gtx.query('getGame', {
+                case 0: return [4 /*yield*/, gtx.query('getField', {
                         id: id
                     })
                     //const names = raw.map((o: any) => o.name)
@@ -124,4 +124,4 @@ function getGame(id) {
         });
     });
 }
-exports.getGame = getGame;
+exports.getField = getField;
