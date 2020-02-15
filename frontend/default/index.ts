@@ -1,17 +1,28 @@
-import { initGame, setToken, getGame } from "./comm";
+import { initGame, setToken, getField } from "./comm";
 
 // Compile with via 'tsc' and nodeJs to .js
 // Then start script with 'node file.js'
 
 async function startGame(){
-    const id = "13"
+    const id = "0"
 
-    const userKeys = await initGame(id)
-    await setToken(id, 0, userKeys)
-    let currentGame = await getGame(id)
+    let userKeys = await initGame(id)
+
+    console.log("SETTING")
+    await setToken(id, 1, userKeys)
+
+    console.log("GETTING")
+    let currentGame = await getField(id)
     console.log(currentGame)
+    
+    console.log("SETTING")
     await setToken(id, 0, userKeys)
-    currentGame = await getGame(id)
+
+    console.log("SETTING")
+    await setToken(id, 0, userKeys)
+
+    console.log("GETTING")
+    currentGame = await getgetFieldGame(id)
     console.log(currentGame)
 }
 
