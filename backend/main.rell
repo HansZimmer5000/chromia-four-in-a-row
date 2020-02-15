@@ -17,28 +17,44 @@ operation init_game(id: text) {
 }
 
 operation set_token(id: text, col: integer) {
+    print("Start");
     val game = game@?{id};
     require(game);
     
-    val field = columns.from_bytes(game.field).columns;
+    print("AA");
+    val field = convertByteToColumns(game.field).columns;
     val column = field[col];
     for (i in range(6)) {
         val token = column[i];
+        print(i);
         if (token == 0){
             column[i] = 1;
+            print("SET");
             break;
         }
     }
+    print("BB");
     
-    val fieldRaw = columns(field).to_bytes();
+    val fieldRaw = convertColumnsToByte(field);
+    print(field);
     update game @ {.id == id} (fieldRaw);
 }
 
-query getGame(id: text): columns{
+// No functions for now, since queries can be accessed and tested from the outside.
+
+query getField(id: text): columns{
     val currentGame = game@?{id};
     if (currentGame != null){
         return columns.from_bytes(currentGame.field);
     } else {
         return columns([[0]]);
     }
+}
+
+query convertColumnsToByte(cols: list<list<integer>>): byte_array {
+    return columns(cols).to_bytes();
+}
+
+query convertByteToColumns(arr: byte_array): columns {
+    return columns.from_bytes(arr);
 }

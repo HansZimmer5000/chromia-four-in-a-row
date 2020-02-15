@@ -45,22 +45,30 @@ function startGame() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    id = "13";
+                    id = "0";
                     return [4 /*yield*/, comm_1.initGame(id)];
                 case 1:
                     userKeys = _a.sent();
-                    return [4 /*yield*/, comm_1.setToken(id, 0, userKeys)];
+                    console.log("SETTING");
+                    return [4 /*yield*/, comm_1.setToken(id, 1, userKeys)];
                 case 2:
                     _a.sent();
+                    console.log("GETTING");
                     return [4 /*yield*/, comm_1.getGame(id)];
                 case 3:
                     currentGame = _a.sent();
                     console.log(currentGame);
+                    console.log("SETTING");
                     return [4 /*yield*/, comm_1.setToken(id, 0, userKeys)];
                 case 4:
                     _a.sent();
-                    return [4 /*yield*/, comm_1.getGame(id)];
+                    console.log("SETTING");
+                    return [4 /*yield*/, comm_1.setToken(id, 0, userKeys)];
                 case 5:
+                    _a.sent();
+                    console.log("GETTING");
+                    return [4 /*yield*/, comm_1.getGame(id)];
+                case 6:
                     currentGame = _a.sent();
                     console.log(currentGame);
                     return [2 /*return*/];
