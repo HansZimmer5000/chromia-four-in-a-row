@@ -76,4 +76,6 @@ function startGame() {
         });
     });
 }
-startGame();
+//startGame()
+var env = process.env["NODE_ENV"];
+console.log(env);
