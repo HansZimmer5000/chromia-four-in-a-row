@@ -18,13 +18,13 @@ operation init_game(id: text) {
 }
 
 operation set_token(id: text, col: integer) {
-    val field: columns = getGameFieldWithNullCheck(id);
-    val column: list<integer> = field[col];
+    val field: columns = columns([[0]]); // FIX INSERT getGameFieldWithNullCheck(id);
+    val column: list<integer> = field.cols[col];
     // TODO check if column is full
-    column = setTokenInColumn(column);
+    val updated_column = [0]; //FIX INSERT setTokenInColumn(column);
     print("BB");
     
-    val fieldRaw = convertColumnsToByte(field);
+    val fieldRaw = field.to_bytes();//FIX INSERT convertColumnsToByte(field);
     print(field);
     update game @ {.id == id} (fieldRaw);
 }
@@ -47,7 +47,7 @@ query getGameFieldWithNullCheck(id: text): columns {
     val game = game@?{id};
     require(game);
     print("AA");
-    val field = convertByteToColumns(game.field).cols;
+    val field = columns([[0]]); //FIX INSERT convertByteToColumns(game.field).cols;
     return field;
 }
 
