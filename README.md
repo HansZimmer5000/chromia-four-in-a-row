@@ -7,7 +7,7 @@ The game is based upon a play field of the size of 7x6 fields (width x height). 
 
 The idea to build this game on the [Chromia Blockchain](https://chromia.com/) in Rell comes from a workshop during the 'WorkshopWeek' of the HAW Hamburg.
 
-The implementation is currently only temporarily deployed via the [web editor](https://try.chromia.dev/).
+The implementation is currently only temporarily deployed via the [web editor](https://rellide-staging.chromia.dev).
 
 ## How to play this implementation
 
@@ -15,11 +15,11 @@ There is no Frontend yet. See TODOs
 
 ## Development
 
-The Rell code is written in the [web editor](https://try.chromia.dev/). 
+The Rell code is written in the [web editor](https://rellide-staging.chromia.dev). 
 
 ## Testing
 
-The Rell code is manually tested in the [web editor](https://try.chromia.dev/)
+The Rell code is manually tested in the [web editor](https://rellide-staging.chromia.dev)
 
 ## TODOs
 
