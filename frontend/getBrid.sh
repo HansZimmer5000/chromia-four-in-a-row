@@ -11,13 +11,6 @@ get_last_node_id(){
     echo $NODE_ID
 }
 
-get_last_node_id_for_History(){
-    cat $ENV_FILE 
-    IN="bla@some.com;john@home.com"
-    arrIN=(${IN//;/ })
-    echo "${arrIN[1]}"
-}
-
 print_help(){
     echo "
 This scripts gets the brid of your chromia ide node and sets it in the current folder of execution in an '.env' file.
