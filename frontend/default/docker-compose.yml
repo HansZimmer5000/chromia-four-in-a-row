@@ -18,4 +18,6 @@ services:
       - ./comm.ts:/tmp/comm.ts
       - ./types.ts:/tmp/types.ts
       - ./compiled:/tmp/compiled/
+    environment:
+      - NODE_ENV="3"
     
