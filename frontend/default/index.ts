@@ -22,7 +22,7 @@ async function startGame(){
     await setToken(id, 0, userKeys)
 
     console.log("GETTING")
-    currentGame = await getgetFieldGame(id)
+    currentGame = await getField(id)
     console.log(currentGame)
 }
 
