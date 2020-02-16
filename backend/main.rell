@@ -43,13 +43,7 @@ query setTokenInColumn(column: list<integer>): list<integer> {
     return column;
 }
 
-<<<<<<< HEAD
-// No functions for now, since queries can be accessed and tested from the outside.
-
-query getGame(id: text): game {
-=======
 query getGameFieldWithNullCheck(id: text): columns {
->>>>>>> 7189abbaddf4196c1d711bb91995bb3aa48d2612
     val game = game@?{id};
     require(game);
     print("AA");
