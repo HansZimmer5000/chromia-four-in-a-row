@@ -10,6 +10,15 @@ entity game {
     mutable field: byte_array;
 }
 
+query getGameFieldWithNullCheck(id: text): columns {
+    val game = game@?{id};
+    require(game); //TODO require forbidden in query?
+    print("AA");
+    val field = columns([[0]]); //convertByteToColumns(game.field).cols;
+    return field;
+}
+
+
 operation init_game(id: text) {
     require(game@?{id} == null); //Refactor to use query
     val default_col = [0,0,0,0,0,0];
@@ -18,13 +27,18 @@ operation init_game(id: text) {
 }
 
 operation set_token(id: text, col: integer) {
-    val field: columns = columns([[0]]); // FIX INSERT getGameFieldWithNullCheck(id);
-    val column: list<integer> = field.cols[col];
+    val game = game@?{id};
+    require(game);
+    print("AA");
+    val field: columns = columns([[0]]); //convertByteToColumns(game.field).cols;
+    
+    var column: list<integer> = field.cols[col];
     // TODO check if column is full
-    val updated_column = [0]; //FIX INSERT setTokenInColumn(column);
+    column = [0]; //setTokenInColumn(column);
+    field.cols[col] = column; // TODO Check ifthis really changes field
     print("BB");
     
-    val fieldRaw = field.to_bytes();//FIX INSERT convertColumnsToByte(field);
+    val fieldRaw = field.to_bytes();//convertColumnsToByte(field);
     print(field);
     update game @ {.id == id} (fieldRaw);
 }
@@ -43,13 +57,6 @@ query setTokenInColumn(column: list<integer>): list<integer> {
     return column;
 }
 
-query getGameFieldWithNullCheck(id: text): columns {
-    val game = game@?{id};
-    require(game);
-    print("AA");
-    val field = columns([[0]]); //FIX INSERT convertByteToColumns(game.field).cols;
-    return field;
-}
 
 query getField(id: text): columns{
     val currentGame = game@?{id};
