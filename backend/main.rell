@@ -14,10 +14,9 @@ query getGameFieldWithNullCheck(id: text): columns {
     val game = game@?{id};
     require(game); //TODO require forbidden in query?
     print("AA");
-    val field = columns([[0]]); //convertByteToColumns(game.field).cols;
+    val field = columns([[0]]);
     return field;
 }
-
 
 operation init_game(id: text) {
     require(game@?{id} == null); //Refactor to use query
@@ -30,21 +29,10 @@ operation set_token(id: text, col: integer) {
     val game = game@?{id};
     require(game);
     print("AA");
-    val field: columns = columns([[0]]); //convertByteToColumns(game.field).cols;
-    
+    val field: columns = columns([[0]]);
     var column: list<integer> = field.cols[col];
-    // TODO check if column is full
-    column = [0]; //setTokenInColumn(column);
-    field.cols[col] = column; // TODO Check ifthis really changes field
-    print("BB");
     
-    val fieldRaw = field.to_bytes();//convertColumnsToByte(field);
-    print(field);
-    update game @ {.id == id} (fieldRaw);
-}
-
-// No functions for now, since queries can be tested from the outside.
-query setTokenInColumn(column: list<integer>): list<integer> {
+    // TODO check if column is full
     for (i in range(6)) {
         val token = column[i];
         print(i);
@@ -54,23 +42,12 @@ query setTokenInColumn(column: list<integer>): list<integer> {
             break;
         }
     }
-    return column;
+
+    field.cols[col] = column; // TODO Check ifthis really changes field
+    print("BB");
+    
+    val fieldRaw = field.to_bytes();
+    print(field);
+    update game @ {.id == id} (fieldRaw);
 }
 
-
-query getField(id: text): columns{
-    val currentGame = game@?{id};
-    if (currentGame != null){
-        return columns.from_bytes(currentGame.field);
-    } else {
-        return columns([[0]]);
-    }
-}
-
-query convertColumnsToByte(cols: list<list<integer>>): byte_array {
-    return columns(cols).to_bytes();
-}
-
-query convertByteToColumns(arr: byte_array): columns {
-    return columns.from_bytes(arr);
-}
