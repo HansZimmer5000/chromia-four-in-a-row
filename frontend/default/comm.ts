@@ -6,8 +6,14 @@ const pcl = require('postchain-client')
 // Check the node log on rellide-staging.chromia.dev to get node api url.
 // const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/XXXXX/'
 // https://rellide-staging.chromia.dev/node/10125/brid/iid_0
-const nodeApiUrl = 'https://rellide-staging.chromia.dev/node/10155/'
-const blockchainRID = '813BD267A03222939B5363139B070344EEC1EF726CA2A9F0D26B3FC6410AAAB0'
+
+let node_id = process.env["NODE_ID"];
+let blockchainRID = process.env["BRID"];
+
+console.log("Using NodeID: " + node_id)
+console.log("Using BRID: " + blockchainRID)
+
+const nodeApiUrl = "https://rellide-staging.chromia.dev/node/" + node_id + "/"
 
 const rest = pcl.restClient.createRestClient(nodeApiUrl, blockchainRID, 5)
 const gtx = pcl.gtxClient.createClient(
@@ -61,10 +67,31 @@ export async function setToken(id: string, col: number, keys: UserKeys): Promise
 	return keys
 }
 
+export async function getGame(id: string): Promise<any> {
+	const raw = await gtx.query(
+		'get_game',
+		{
+			id: id
+		}
+	)
+	
+	return raw
+}
+
+export async function setToken2(id: string, col: number): Promise<any> {
+	const raw = await gtx.query(
+		'set_token2',
+		{
+			id: id, col: col
+		}
+	)
+	
+	return raw
+}
 
 export async function getField(id: string): Promise<any> {
 	const raw = await gtx.query(
-		'getField',
+		'get_field',
 		{
 			id: id
 		}
