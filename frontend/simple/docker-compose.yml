@@ -5,6 +5,7 @@ services:
     image: node:13.7.0
     command: bash -c "
       cd /tmp/ &&
+      npm install -g npm@latest && 
       npm install postchain-client && 
       npm install typescript && 
       npm i @types/node && 
@@ -17,6 +18,6 @@ services:
       - ./comm.ts:/tmp/comm.ts
       - ./types.ts:/tmp/types.ts
       - ./compiled:/tmp/compiled/
-    env_file: .env #Is not needed to be specified, but its also more confusing.
+    env_file: .env
 
     
