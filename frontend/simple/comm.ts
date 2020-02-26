@@ -59,7 +59,7 @@ export async function initGame(id: string): Promise<UserKeys> {
 	return keys
 }
 
-export async function setToken(id: string, newName: string, keys: UserKeys): Promise<UserKeys> {
+export async function setToken(id: string, newName: number, keys: UserKeys): Promise<UserKeys> {
 	await doOperations(keys, tx => {
         tx.addOperation('set_token', id, newName)
 	})
@@ -68,9 +68,9 @@ export async function setToken(id: string, newName: string, keys: UserKeys): Pro
 }
 
 
-export async function getName(id: string): Promise<any> {
+export async function getField(id: string): Promise<any> {
 	const raw = await gtx.query(
-		'get_name',
+		'get_field',
 		{
 			id: id
 		}

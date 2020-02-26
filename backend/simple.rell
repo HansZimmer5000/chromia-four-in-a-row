@@ -1,20 +1,27 @@
 // In this variation both players need to be next to each other on the same host / device.
 
+struct matrix {
+    cols: list<integer>;
+}
+
+
 entity game {
     key id: text;
-    mutable name: text;
+    mutable field: byte_array;
 }
 
 operation init_game(id: text) {
-    create game(.id=id, .name="leer");
+    var newMatrix = matrix([1,0]).to_bytes();
+    create game(.id=id, .field=newMatrix);
 }
 
-operation set_token(id: text, newName: text) {
-    update game @ {.id == id} (.name=newName);
+operation set_token(id: text, newMatrixField2: integer) {
+    var newMatrix = matrix([1,newMatrixField2]).to_bytes();
+    update game @ {.id == id} (.field=newMatrix);
 }
 
-query get_name(id: text): text{
+query get_field(id: text): matrix{
     val currentGame = game@?{id};
     require(currentGame);
-    return currentGame.name;
+    return matrix.from_bytes(currentGame.field);
 }

@@ -1,4 +1,3 @@
-
 // In this variation both players need to be next to each other on the same host / device.
 
 struct columns {
