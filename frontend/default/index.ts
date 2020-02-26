@@ -21,12 +21,11 @@ async function startGame(){
 
     console.log("SETTING3")
     console.log(await setToken2(id, 0));
-    //await setToken(id, 0, userKeys)
+
+    console.log("SETTING4")
+    await setToken(id, 0, userKeys)
 
     console.log("GETTING2")
-    console.log(await getGame(id));
-
-
     currentGame = await getField(id)
     console.log(currentGame)
 }
