@@ -1,0 +1,69 @@
+
+// In this variation both players need to be next to each other on the same host / device.
+
+struct columns {
+    cols: list<list<integer>>;
+}
+
+entity game {
+    key id: text;
+    mutable field: byte_array;
+}
+
+operation init_game(id: text) {
+    require(game@?{id} == null); //Refactor to use query
+    val default_col = [0,0,0,0,0,0];
+    val empty_columns = columns([default_col,default_col,default_col,default_col,default_col,default_col,default_col]).to_bytes();
+    create game(id, empty_columns);
+}
+
+operation set_token(id: text, col: integer) {
+    val field: columns = getGameFieldWithNullCheck(id);
+    val column: list<integer> = field[col];
+    // TODO check if column is full
+    column = setTokenInColumn(column);
+    print("BB");
+    
+    val fieldRaw = convertColumnsToByte(field);
+    print(field);
+    update game @ {.id == id} (fieldRaw);
+}
+
+// No functions for now, since queries can be tested from the outside.
+query setTokenInColumn(column: list<integer>): list<integer> {
+    for (i in range(6)) {
+        val token = column[i];
+        print(i);
+        if (token == 0){
+            column[i] = 1;
+            print("SET");
+            break;
+        }
+    }
+    return column;
+}
+
+query getGameFieldWithNullCheck(id: text): columns {
+    val game = game@?{id};
+    require(game);
+    print("AA");
+    val field = convertByteToColumns(game.field).cols;
+    return field;
+}
+
+query getField(id: text): columns{
+    val currentGame = game@?{id};
+    if (currentGame != null){
+        return columns.from_bytes(currentGame.field);
+    } else {
+        return columns([[0]]);
+    }
+}
+
+query convertColumnsToByte(cols: list<list<integer>>): byte_array {
+    return columns(cols).to_bytes();
+}
+
+query convertByteToColumns(arr: byte_array): columns {
+    return columns.from_bytes(arr);
+}
