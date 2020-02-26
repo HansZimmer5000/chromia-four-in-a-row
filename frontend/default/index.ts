@@ -26,4 +26,6 @@ async function startGame(){
     console.log(currentGame)
 }
 
-startGame()
+//startGame()
+let env = process.env["NODE_ENV"];
+console.log(env)
