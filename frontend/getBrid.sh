@@ -3,7 +3,7 @@
 ENV_FILE="./.env"
 
 get_brid(){
-    curl -s https://rellide-staging.chromia.dev/node/$1/brid/iid_0
+    echo $(curl -s https://rellide-staging.chromia.dev/node/$1/brid/iid_0)
 }
 
 get_last_node_id(){
@@ -30,7 +30,7 @@ else
         NODE_ID=$1
     fi
 
-    get_brid $NODE_ID
+    BRID=$(get_brid $NODE_ID)
 
     echo "BRID=$BRID"
     echo "NODE_ID=$NODE_ID"

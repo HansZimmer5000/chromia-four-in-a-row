@@ -1,31 +1,33 @@
-import { initGame, setToken, getField } from "./comm";
+import { initGame, setToken, getField, setToken2, getGame } from "./comm";
 
 // Compile with via 'tsc' and nodeJs to .js
 // Then start script with 'node file.js'
 
 async function startGame(){
-    const id = "0"
+    const id_raw = Math.floor((Math.random() * 100) + 1);
+    const id = id_raw.toString();
 
     let userKeys = await initGame(id)
 
-    console.log("SETTING")
+    console.log("SETTING1")
     await setToken(id, 1, userKeys)
 
-    console.log("GETTING")
+    console.log("GETTING1")
     let currentGame = await getField(id)
     console.log(currentGame)
     
-    console.log("SETTING")
+    console.log("SETTING2")
     await setToken(id, 0, userKeys)
 
-    console.log("SETTING")
+    console.log("SETTING3")
+    console.log(await setToken2(id, 0));
+
+    console.log("SETTING4")
     await setToken(id, 0, userKeys)
 
-    console.log("GETTING")
+    console.log("GETTING2")
     currentGame = await getField(id)
     console.log(currentGame)
 }
 
-//startGame()
-let env = process.env["NODE_ENV"];
-console.log(env)
+startGame()

@@ -10,15 +10,6 @@ entity game {
     mutable field: byte_array;
 }
 
-query getGameFieldWithNullCheck(id: text): columns {
-    val game = game@?{id};
-    require(game); //TODO require forbidden in query?
-    print("AA");
-    val field = columns([[0]]); //convertByteToColumns(game.field).cols;
-    return field;
-}
-
-
 operation init_game(id: text) {
     require(game@?{id} == null); //Refactor to use query
     val default_col = [0,0,0,0,0,0];
@@ -29,48 +20,60 @@ operation init_game(id: text) {
 operation set_token(id: text, col: integer) {
     val game = game@?{id};
     require(game);
-    print("AA");
-    val field: columns = columns([[0]]); //convertByteToColumns(game.field).cols;
     
+    val field: columns = convert_to_columns(game.field);
     var column: list<integer> = field.cols[col];
-    // TODO check if column is full
-    column = [0]; //setTokenInColumn(column);
-    field.cols[col] = column; // TODO Check ifthis really changes field
-    print("BB");
     
-    val fieldRaw = field.to_bytes();//convertColumnsToByte(field);
+    var (updated_column, token_was_set) = set_token_in_column_if_possible(column);
+    print(token_was_set);
+
+    field.cols[col] = updated_column; // TODO Check if this really changes field
+    
+    val fieldRaw = field.to_bytes();
     print(field);
     update game @ {.id == id} (fieldRaw);
 }
 
-// No functions for now, since queries can be tested from the outside.
-query setTokenInColumn(column: list<integer>): list<integer> {
+query set_token2(id: text, col: integer): columns {
+    val game = game@?{id};
+    require(game);
+    
+    val field: columns = convert_to_columns(game.field);
+    var column: list<integer> = field.cols[col];
+    
+    var (updated_column, token_was_set) = set_token_in_column_if_possible(column);
+    print(token_was_set);
+
+    field.cols[col] = updated_column; // TODO Check if this really changes field
+    
+    return field;
+}
+
+query get_game(id: text): game {
+    return game@?{id};
+}
+
+function set_token_in_column_if_possible(column: list<integer>): (list<integer>,boolean) {
+    var token_was_set: boolean = false;
     for (i in range(6)) {
         val token = column[i];
-        print(i);
         if (token == 0){
             column[i] = 1;
-            print("SET");
+            token_was_set = true;
             break;
         }
     }
-    return column;
+    val updated_column = column;
+    return (updated_column, token_was_set);
 }
 
-
-query getField(id: text): columns{
-    val currentGame = game@?{id};
-    if (currentGame != null){
-        return columns.from_bytes(currentGame.field);
-    } else {
-        return columns([[0]]);
-    }
+query get_field(id: text): columns{
+    var game = game@?{id};
+    require(game);
+    val field: columns = convert_to_columns(game.field);
+    return field;
 }
 
-query convertColumnsToByte(cols: list<list<integer>>): byte_array {
-    return columns(cols).to_bytes();
-}
-
-query convertByteToColumns(arr: byte_array): columns {
-    return columns.from_bytes(arr);
+function convert_to_columns(raw_field: byte_array): columns{
+    return columns.from_bytes(raw_field);
 }
