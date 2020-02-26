@@ -1,0 +1,20 @@
+// In this variation both players need to be next to each other on the same host / device.
+
+entity game {
+    key id: text;
+    name: text;
+}
+
+operation init_game(id: text) {
+    create game(id, "");
+}
+
+operation set_token(id: text, newName: text) {
+    update game @ {.id == id} (newName);
+}
+
+query getName(id: text): columns{
+    val currentGame = game@?{id};
+    require(currentGame);
+    return currentGame.name;
+}

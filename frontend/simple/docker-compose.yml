@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  node:
+    image: node:13.7.0
+    command: bash -c "
+      cd /tmp/ &&
+      npm install postchain-client && 
+      npm install typescript && 
+      npm i @types/node && 
+      echo "--CONVERTING!!--" &&
+      npx tsc index.ts && 
+      cp *.js ./compiled/ &&
+      node index.js"
+    volumes:
+      - ./index.ts:/tmp/index.ts
+      - ./comm.ts:/tmp/comm.ts
+      - ./types.ts:/tmp/types.ts
+      - ./compiled:/tmp/compiled/
+    env_file: .env #Is not needed to be specified, but its also more confusing.
+
+    
