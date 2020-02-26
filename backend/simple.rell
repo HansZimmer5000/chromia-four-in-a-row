@@ -2,18 +2,18 @@
 
 entity game {
     key id: text;
-    name: text;
+    mutable name: text;
 }
 
 operation init_game(id: text) {
-    create game(id, "");
+    create game(.id=id, .name="leer");
 }
 
 operation set_token(id: text, newName: text) {
-    update game @ {.id == id} (newName);
+    update game @ {.id == id} (.name=newName);
 }
 
-query getName(id: text): columns{
+query get_name(id: text): text{
     val currentGame = game@?{id};
     require(currentGame);
     return currentGame.name;
