@@ -1,0 +1,12 @@
+function main() {
+    print('Hello World!');
+    print(game@*{});
+}
+
+entity game{
+	key id: text;
+}
+
+operation d(newid: text) {
+	create game(newid);
+}
